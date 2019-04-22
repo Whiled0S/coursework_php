@@ -1,0 +1,23 @@
+{
+  "name": "coursework_php",
+  "version": "1.0.0",
+  "description": "coursework for programming subject",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --open",
+    "build": "webpack --mode=production"
+  },
+  "author": "whiled0s",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Whiled0S/coursework_php"
+  },
+  "devDependencies": {
+    "ts-loader": "^5.4.3",
+    "typescript": "^3.4.4",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1",
+    "webpack-dev-server": "^3.3.1"
+  }
+}
