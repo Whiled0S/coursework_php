@@ -11,20 +11,33 @@
 </head>
 
 <body>
+  <div id="overlay"></div>
   <div id="app">
     <header>
       <div class="menu container">
         <div class="logo">Image Loader</div>
         <div class="buttons js-menu-buttons">
           <div class="border js-border"></div>
-          <button class="buttons__search js-menu-button">Search</button>
           <button class="buttons__upload js-menu-button active">Upload</button>
+          <button class="buttons__search js-menu-button">Search</button>
         </div>
       </div>
     </header>
     <content>
       <div class="container">
-        Content
+        <div id="page-wrapper">
+          <section class="page active" id="upload-page">
+            <div class="content">
+
+            </div>
+          </section>
+
+          <section class="page" id="search-page">
+            <div class="content">
+              
+            </div>
+          </section>
+        </div>
       </div>
     </content>
     <footer>

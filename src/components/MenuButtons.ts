@@ -1,15 +1,18 @@
-import '../lib/common';
 import { arrayFromHTMLCollection } from '../lib/common';
 
 export default class MenuButtons {
   menuButtons: HTMLElement;
   border: HTMLElement;
   buttons: HTMLCollectionOf<Element>;
+  activeButton: Element;
+  callback: Function; 
 
-  constructor(menuButtons: HTMLElement) {
+  constructor(menuButtons: HTMLElement, callback?: (index: Number) => void) {
     this.menuButtons = menuButtons;
     this.buttons = menuButtons.getElementsByClassName('js-menu-button');
     this.border = menuButtons.querySelector('.js-border');
+    this.activeButton = menuButtons.querySelector('.active');
+    this.callback = callback || function(): void {};
 
     this.init();
   }
@@ -20,21 +23,18 @@ export default class MenuButtons {
   }
 
   private updateBorder(): void {
-    const activeButton: Element = this.getActiveButton();
-    const activeButtonOffsetLeft = this.getButtonOffsetLeft(activeButton);
-    const activeButtonWidth = activeButton.clientWidth;
+    const activeButtonOffsetLeft: Number = this.getButtonOffsetLeft(this.activeButton);
+    const activeButtonWidth: Number = this.activeButton.clientWidth;
 
     this.border.style.width = `${activeButtonWidth}px`;
     this.border.style.transform = `translateX(${activeButtonOffsetLeft}px)`;
-  }
 
-  private getActiveButton(): Element {
-    return arrayFromHTMLCollection(this.buttons).find(button =>
-      button.classList.contains('active')
-    );
+    const activeIndex: Number = arrayFromHTMLCollection(this.buttons).indexOf(this.activeButton);
+    this.callback(activeIndex);
   }
 
   private setActiveButton(button: Element):void {
+    this.activeButton = button;
     button.classList.add('active');
   }
 
@@ -44,12 +44,12 @@ export default class MenuButtons {
 
   private setButtonsClickHandler(): void {
     this.menuButtons.onclick = (event: Event) => {
-      const target = event.target as Element;
-      const button = target.closest('button');
+      const target: Element = event.target as Element;
+      const button: Element = target.closest('button');
 
-      if (!button) return;
+      if (!button || button === this.activeButton) return;
 
-      this.getActiveButton().classList.remove('active');
+      this.activeButton.classList.remove('active');
       this.setActiveButton(button);
       this.updateBorder();
     }

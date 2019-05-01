@@ -18,6 +18,14 @@ module.exports = {
         }, {
           loader: 'less-loader' // compiles Less to CSS
         }]
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        use: [
+          {
+            loader: 'file-loader?name=./assets/fonts/[name].[ext]'
+          }
+        ]
       }
     ]
   },
