@@ -2,19 +2,167 @@
   width: 100%;
 
   #image-upload-form {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+  }
 
-    label {
-      width          : 200px;
-      height         : 200px;
-      border         : 1px solid #CCC;
-      display        : flex;
-      align-items    : center;
-      justify-content: center;
-      cursor         : pointer;
+  .file-upload {
+    flex-basis: 25%;
+    padding: 0 10px;
+    margin-bottom: 20px;
+
+    &__label {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding-top: 100%;
+      cursor: pointer;
+      border: 2px dashed @seabrook;
+      border-radius: 4px;
+      overflow: hidden;
     }
 
-    input[type='file'] {
+    &__image-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &__image {
       display: none;
+      width: 100%;
+      height: 100%;
+      //max-width: 100%;
+      //max-height: 100%;
+      object-fit: contain;
+    }
+
+    &__input {
+      display: none;
+    }
+
+    &__overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: transparent;
+      transition: background .3s;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, .5);
+
+        .file-upload__icon {
+
+          &.upload {
+            background-image: url('../../icons/upload.svg');
+          }
+        }
+      }
+    }
+
+    &__icon-wrapper {
+      padding: 10px;
+      border-radius: 4px;
+      background-color: transparent;
+      transition: background-color .3s;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, .3);
+      }
+
+      &.remove,
+      &.refresh {
+        display: none;
+      }
+    }
+
+    &__icon {
+      display: block;
+      width: 30px;
+      height: 30px;
+      background-size: 100%;
+      background-position: center center;
+      background-repeat: no-repeat;
+
+      &.remove {
+        background-image: url('../../icons/cross.svg');
+      }
+
+      &.refresh {
+        background-image: url('../../icons/refresh.svg');
+      }
+
+      &.upload {
+        width: 60px;
+        height: 60px;
+        background-image: url('../../icons/upload-blue.svg');
+      }
+    }
+
+    &.active {
+
+      .file-upload__label {
+        background-image: url("../../icons/transparent.svg");
+        background-size: 16px;
+        background-position: center center;
+        border: none;
+      }
+
+      .file-upload__image {
+        display: block;
+      }
+
+      .file-upload__icon-wrapper {
+
+        &.upload {
+          display: none;
+        }
+
+        &.remove,
+        &.refresh {
+          display: block;
+          opacity: 0;
+        }
+      }
+
+      .file-upload__overlay:hover {
+
+        .file-upload__icon-wrapper {
+          &.remove,
+          &.refresh {
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    &:only-child {
+
+      .file-upload__icon-wrapper {
+
+        &.remove {
+          display: none;
+        }
+      }
+
+      .file-upload__icon {
+
+        &.refresh {
+          height: 60px;
+          width: 60px;
+        }
+      }
     }
   }
 }

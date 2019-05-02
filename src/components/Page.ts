@@ -1,3 +1,5 @@
+import EventBus from '../lib/EventBus';
+
 export default class Page {
   private page: HTMLElement;
   private scrollbar: HTMLElement;
@@ -14,20 +16,29 @@ export default class Page {
   }
 
   private init() {
-    this.setContentScrollHandler();
+    this.initScroll();
+    this.subscribeContentAppendAction();
   }
 
-  private setContentScrollHandler(): void {
-    const wrapperHeight = this.wrapper.offsetHeight;
+  private initScroll(): void {
     const pageHeight = this.page.offsetHeight;
+    const wrapperHeight = this.wrapper.offsetHeight;
     const heightDiff = wrapperHeight - pageHeight;
 
-    if (heightDiff <= 0) return;
-
-    this.content.onscroll = () => {
-      console.log(this.content.scrollTop);
-      this.scrollbar.style.transform = 
+    if (heightDiff <= 0)
+      this.scrollbar.style.transform = 'translateY(-100%)';
+    else {
+      this.scrollbar.style.transform =
         `translateY(${-100 + this.content.scrollTop / heightDiff * 100}%)`;
+
+      this.content.onscroll = () => {
+        this.scrollbar.style.transform =
+          `translateY(${-100 + this.content.scrollTop / heightDiff * 100}%)`;
+      }
     }
+  }
+
+  private subscribeContentAppendAction(): void {
+    EventBus.subscribe('changeContentSize', this.initScroll.bind(this));
   }
 }

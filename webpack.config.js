@@ -1,3 +1,4 @@
+const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -26,6 +27,15 @@ module.exports = {
             loader: 'file-loader?name=./assets/fonts/[name].[ext]'
           }
         ]
+      },
+      {
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader',
+          options: {
+            attrs: [':data-src']
+          }
+        }
       }
     ]
   },
@@ -40,5 +50,10 @@ module.exports = {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 3000
-  }
+  },
+  plugins: [
+    new CopyPlugin([
+      {from: 'src/index.html', to: './'}
+    ]),
+  ],
 };

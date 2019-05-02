@@ -5,4 +5,11 @@ export const arrayFromHTMLCollection = (collection: HTMLCollection):Array<Elemen
     array.push(collection.item(i));
 
   return array;
-}
+};
+
+export const parseStringToHtml = (htmlString: string): HTMLElement => {
+  const parser: DOMParser = new DOMParser();
+  const template: Document = parser.parseFromString(htmlString, "text/html");
+
+  return template.querySelector('body').children.item(0) as HTMLElement;
+};
