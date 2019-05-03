@@ -2,9 +2,30 @@
   width: 100%;
 
   #image-upload-form {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -10px;
+    &__items {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -10px;
+    }
+
+    &__submit {
+      width: 100%;
+      padding: 10px;
+      font-family: @roboto;
+      text-transform: uppercase;
+      border-radius: 5px;
+      background-color: @seabrook;
+      color: @white;
+      font-size: 22px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      transition: background-color .3s;
+
+      &:hover {
+        background-color: @seabrook-darken;
+      }
+    }
   }
 
   .file-upload {
@@ -143,24 +164,6 @@
           &.refresh {
             opacity: 1;
           }
-        }
-      }
-    }
-
-    &:only-child {
-
-      .file-upload__icon-wrapper {
-
-        &.remove {
-          display: none;
-        }
-      }
-
-      .file-upload__icon {
-
-        &.refresh {
-          height: 60px;
-          width: 60px;
         }
       }
     }

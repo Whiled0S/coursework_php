@@ -3,13 +3,15 @@ import "./lib/common";
 
 import PageWrapper from "./components/PageWrapper";
 import MenuButtons from "./components/MenuButtons";
-import ImageUploadManager from "./components/ImageUploadManager";
+import ImageUploadService from "./components/ImageUploadService";
+import {arrayFromHTMLCollection, arrayFromFileList} from "./lib/common";
 
 window.onload = function () {
   const overlay: Element = document.querySelector("#overlay");
   const pageWrapper: HTMLElement = document.querySelector("#page-wrapper");
   const menuButtons: HTMLElement = document.querySelector(".js-menu-buttons");
   const imageUploadForm: HTMLFormElement = document.querySelector("#image-upload-form");
+  const imageUploadFormSubmit: HTMLElement = imageUploadForm.querySelector("#image-upload-form__submit");
 
   overlay.classList.add('disabled');
 
@@ -17,15 +19,18 @@ window.onload = function () {
   const buttons: MenuButtons = new MenuButtons(menuButtons, (index: number) => {
     wrapper.showPage(index);
   });
-  const imageUploadManager = new ImageUploadManager(imageUploadForm);
+  const imageUploadManager = new ImageUploadService(imageUploadForm);
 
-  // const formData: FormData = new FormData();
-  // formData.append("name", "Имя");
+  imageUploadFormSubmit.onclick = (event) => {
+    event.preventDefault();
 
-  // fetch("http://localhost/coursework_php/backend/index.php", {
-  //   method: "POST",
-  //   body: formData
-  // })
-  //   .then(res => res.json())
-  //   .then(data => console.log(data));
+    const formData = new FormData(imageUploadForm);
+
+    fetch("http://localhost/coursework_php/backend/index.php", {
+      method: "POST",
+      body: formData
+    })
+      .then(res => res.json())
+      .then(data => console.log(data));
+  }
 };

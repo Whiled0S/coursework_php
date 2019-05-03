@@ -7,6 +7,15 @@ export const arrayFromHTMLCollection = (collection: HTMLCollection):Array<Elemen
   return array;
 };
 
+export const arrayFromFileList = (list: FileList):Array<File> => {
+  let array = new Array(0);
+
+  for (let i = 0; i < list.length; i++)
+    array.push(list.item(i));
+
+  return array;
+};
+
 export const parseStringToHtml = (htmlString: string): HTMLElement => {
   const parser: DOMParser = new DOMParser();
   const template: Document = parser.parseFromString(htmlString, "text/html");

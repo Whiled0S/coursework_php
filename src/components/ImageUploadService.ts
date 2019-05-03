@@ -1,11 +1,13 @@
 import ImageUpload from './ImageUpload';
 import EventBus from '../lib/EventBus';
 
-export default class ImageUploadManager {
+export default class ImageUploadService {
   private form: HTMLFormElement;
+  private itemsContainer: HTMLElement;
 
   constructor(form: HTMLFormElement) {
     this.form = form;
+    this.itemsContainer = this.form.querySelector('.js-items');
 
     this.init();
   }
@@ -20,11 +22,11 @@ export default class ImageUploadManager {
     this.setComponentUpdateHandler(imageUploadComponent);
     this.setComponentCloseHandler(imageUploadComponent);
 
-    this.form.appendChild(imageUploadComponent.template);
+    this.itemsContainer.appendChild(imageUploadComponent.template);
   }
 
   private removeUploadComponent(component: ImageUpload): void {
-    this.form.removeChild(component.template);
+    this.itemsContainer.removeChild(component.template);
   }
 
   private setComponentUpdateHandler(component: ImageUpload): void {
