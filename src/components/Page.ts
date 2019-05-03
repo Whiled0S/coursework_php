@@ -26,7 +26,7 @@ export default class Page {
     const heightDiff = wrapperHeight - pageHeight;
 
     if (heightDiff <= 0)
-      this.scrollbar.style.transform = 'translateY(-100%)';
+      this.scrollbar.style.transform = 'translateY(-101%)';
     else {
       this.scrollbar.style.transform =
         `translateY(${-100 + this.content.scrollTop / heightDiff * 100}%)`;

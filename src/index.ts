@@ -20,17 +20,4 @@ window.onload = function () {
     wrapper.showPage(index);
   });
   const imageUploadManager = new ImageUploadService(imageUploadForm);
-
-  imageUploadFormSubmit.onclick = (event) => {
-    event.preventDefault();
-
-    const formData = new FormData(imageUploadForm);
-
-    fetch("http://localhost/coursework_php/backend/index.php", {
-      method: "POST",
-      body: formData
-    })
-      .then(res => res.json())
-      .then(data => console.log(data));
-  }
 };
