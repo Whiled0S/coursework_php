@@ -5,6 +5,11 @@ header('Content-Type: application/json');
 
 // Uploading images to the server
 
+$response = [
+    'success' => false,
+    'empty' => false
+];
+
 if (count($_FILES) > 0) {
     $files = $_FILES['files'];
     $names = $files['name'];
@@ -12,18 +17,18 @@ if (count($_FILES) > 0) {
     array_pop($names);
 
     if (count($names) === 0)
-        print(json_encode(['empty' => true]));
+        $response['empty'] = true;
     else {
         include_once "./saveFiles.php";
 
         try {
             saveFiles($names, $files);
 
-            print(json_encode(['success' => true]));
+            $response['success'] = true;
         } catch (Exception $exception) {
-            print(json_encode(['success' => false]));
+            $response['success'] = false;
         }
     }
-} else {
-    print(count($_FILES));
+
+    print(json_encode($response));
 }

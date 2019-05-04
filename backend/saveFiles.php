@@ -21,8 +21,8 @@ function saveFiles($names, $files) {
         if (file_exists($targetFileName) && is_file($targetFileName)) {
             mkdir($targetDirName);
 
-            $oldFileName = generateUniqueName($filename, $extension);
-            $newFileName = generateUniqueName($filename, $extension);
+            $oldFileName = generateUniqueName($extension);
+            $newFileName = generateUniqueName($extension);
 
             rename(
                 $targetFileName,
@@ -33,7 +33,7 @@ function saveFiles($names, $files) {
                 "$targetDirName/{$newFileName}"
             );
         } else if (is_dir($targetDirName)) {
-            $newFileName = generateUniqueName($filename, $extension);
+            $newFileName = generateUniqueName($extension);
 
             move_uploaded_file(
                 $files['tmp_name'][$i],
