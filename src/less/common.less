@@ -1,53 +1,53 @@
 * {
-  box-sizing : border-box;
+  box-sizing: border-box;
   font-family: @roboto;
 }
 
 html,
 body {
   font-family: @roboto;
-  height     : 100%;
-  overflow   : hidden;
+  height: 100%;
+  overflow: hidden;
 }
 
 #overlay {
-  position        : fixed;
-  top             : 0;
-  left            : 0;
-  right           : 0;
-  bottom          : 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: @white;
-  z-index         : 100;
-  opacity         : 1;
-  transition      : opacity 1s, visibility 1s;
+  z-index: 100;
+  opacity: 1;
+  transition: opacity 1s, visibility 1s;
 
   &.disabled {
     visibility: hidden;
-    opacity   : 0;
+    opacity: 0;
   }
 }
 
 .container {
-  position : relative;
-  width    : 100%;
+  position: relative;
+  width: 100%;
   max-width: 960px;
-  padding  : 0 15px;
-  margin   : 0 auto;
+  padding: 0 15px;
+  margin: 0 auto;
 }
 
 #page-wrapper {
-  position  : absolute;
-  top       : 0;
-  left      : 0;
-  display   : flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
   max-height: 100%;
-  width     : 200%;
+  width: 200%;
   transition: transform .5s;
 }
 
 .page {
-  position  : relative;
-  opacity   : 0;
+  position: relative;
+  opacity: 0;
   transition: opacity .5s;
   overflow-x: visible;
 
@@ -56,21 +56,21 @@ body {
   }
 
   .scrollbar {
-    position        : absolute;
-    top             : 0;
-    right           : -4px;
-    width           : 4px;
-    height          : 100%;
-    transition      : transform .1s;
+    position: absolute;
+    top: 0;
+    right: -4px;
+    width: 4px;
+    height: 100%;
+    transition: transform .1s;
     background-color: @seabrook;
-    transform       : translateY(-101%);
+    transform: translateY(-101%);
   }
 
   .content {
-    height            : 100%;
-    overflow-y        : scroll;
+    height: 100%;
+    overflow-y: scroll;
     -ms-overflow-style: none; // IE 10+
-    scrollbar-width   : none; // Firefox
+    scrollbar-width: none; // Firefox
 
     &::-webkit-scrollbar {
       display: none; // Safari and Chrome
@@ -83,14 +83,15 @@ body {
 }
 
 #app {
-  display       : flex;
+  display: flex;
   flex-direction: column;
-  min-height    : 100%;
+  min-height: 100%;
 
   content {
-    display        : flex;
-    flex-grow      : 1;
+    position: relative;
+    display: flex;
+    flex-grow: 1;
     justify-content: center;
-    overflow       : hidden;
+    overflow: hidden;
   }
 }

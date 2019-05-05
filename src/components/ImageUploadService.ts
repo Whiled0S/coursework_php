@@ -7,6 +7,15 @@ export default class ImageUploadService {
     private readonly form: HTMLFormElement;
     private itemsContainer: HTMLElement;
 
+    private text = {
+        success: 'Изображения успешно загружены',
+        empty: 'Загрузите изображения',
+        error: 'Не удалось загрузить изображения',
+        incorrect: 'Неверный формат изображения',
+        small: 'Слишком маленький размер изображения',
+        corrupted: 'Файл поврежден'
+    };
+
     constructor(form: HTMLFormElement) {
         this.form = form;
         this.itemsContainer = this.form.querySelector('.js-items');
@@ -56,12 +65,17 @@ export default class ImageUploadService {
 
             if (response.success) {
                 this.resetForm();
-                EventBus.emit('showMessage', 'success');
-            }
-            else if (response.empty)
-                EventBus.emit('showMessage', 'empty');
+                EventBus.emit('showMessage', 'success', this.text.success);
+            } else if (response.empty)
+                EventBus.emit('showMessage', 'info', this.text.empty);
+            else if (response.incorrect)
+                EventBus.emit('showMessage', 'danger', this.text.incorrect);
+            else if (response.corrupted)
+                EventBus.emit('showMessage', 'danger', this.text.corrupted);
+            else if (response.small)
+                EventBus.emit('showMessage', 'danger', this.text.small);
             else
-                EventBus.emit('showMessage', 'error');
+                EventBus.emit('showMessage', 'danger', this.text.error);
         }
     }
 

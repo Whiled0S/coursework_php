@@ -7,7 +7,10 @@ header('Content-Type: application/json');
 
 $response = [
     'success' => false,
-    'empty' => false
+    'empty' => false,
+    'incorrect' => false,
+    'small' => false,
+    'corrupted' => false
 ];
 
 if (count($_FILES) > 0) {
@@ -26,7 +29,21 @@ if (count($_FILES) > 0) {
 
             $response['success'] = true;
         } catch (Exception $exception) {
-            $response['success'] = false;
+            $message = $exception->getMessage();
+
+            switch ($message) {
+                case "incorrect format":
+                    $response['incorrect'] = true;
+                    break;
+                case "small":
+                    $response['small'] = true;
+                    break;
+                case "file is corrupted":
+                    $response['corrupted'] = true;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

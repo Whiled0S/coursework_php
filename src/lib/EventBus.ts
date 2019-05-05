@@ -6,7 +6,7 @@ let EventBus = {
   changeContentSize: new EventBusAction(),
   showMessage: new EventBusAction(),
 
-  emit(actionName: string, ...args: any) {
+  emit(actionName: string, ...args: Array<any>) {
     if (!this[actionName]) return;
 
     this[actionName].callbacks.map((callback: Function) => callback(...args));
