@@ -1,5 +1,8 @@
 <?php
 
+include "./lib/helpers.php";
+include "./classes/ImageLoader.php";
+
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: application/json');
 
@@ -10,42 +13,70 @@ $response = [
     'empty' => false,
     'incorrect' => false,
     'small' => false,
-    'corrupted' => false
+    'internal' => false
 ];
 
-if (count($_FILES) > 0) {
-    $files = $_FILES['files'];
-    $names = $files['name'];
+$files = makeFilesArrayFromPost($_FILES['files']);
 
-    array_pop($names);
+$ImageLoader = new ImageLoader($files);
 
-    if (count($names) === 0)
-        $response['empty'] = true;
-    else {
-        include_once "./saveFiles.php";
+try {
+    $ImageLoader->uploadFiles();
 
-        try {
-            saveFiles($names, $files);
+    $response['success'] = true;
+} catch (Exception $exception) {
+    $code = $exception->getMessage();
 
-            $response['success'] = true;
-        } catch (Exception $exception) {
-            $message = $exception->getMessage();
-
-            switch ($message) {
-                case "incorrect format":
-                    $response['incorrect'] = true;
-                    break;
-                case "small":
-                    $response['small'] = true;
-                    break;
-                case "file is corrupted":
-                    $response['corrupted'] = true;
-                    break;
-                default:
-                    break;
-            }
-        }
+    switch ($code) {
+        case 1:
+            $response['empty'] = true;
+            break;
+        case 2:
+            $response['incorrect'] = true;
+            break;
+        case 3:
+            $response['small'] = true;
+            break;
+        default:
+            $response['internal'] = true;
     }
-
-    print(json_encode($response));
 }
+
+print(json_encode($response));
+
+//if (count($_FILES) > 0) {
+//    $files = $_FILES['files'];
+//    $names = $files['name'];
+//
+//    array_pop($names);
+//
+//    if (count($names) === 0)
+//        $response['empty'] = true;
+//    else {
+//        include_once "./saveFiles.php";
+//
+//        try {
+//            saveFiles($names, $files);
+//
+//            $response['success'] = true;
+//        } catch (Exception $exception) {
+//            $message = $exception->getMessage();
+//
+//            switch ($message) {
+//                case "incorrect format":
+//                    $response['incorrect'] = true;
+//                    break;
+//                case "small":
+//                    $response['small'] = true;
+//                    break;
+//                case "file is corrupted":
+//                    $response['corrupted'] = true;
+//                    break;
+//                default:
+//                    break;
+//            }
+//        }
+//    }
+//
+//    print(json_encode($response));
+//}
