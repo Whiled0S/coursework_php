@@ -34,7 +34,6 @@ class ImageLoader
             if ($image_size['mime'] != 'image/jpeg')
                 throw new Exception(2);
 
-
             if (
                 $width < self::RESOLUTION['width'] ||
                 $height < self::RESOLUTION['height']

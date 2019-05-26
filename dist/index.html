@@ -11,40 +11,26 @@
 </head>
 
 <body>
+
 <div id="overlay"></div>
 <div id="app">
 	<header>
 		<div class="menu container">
 			<div class="logo">Image Loader</div>
-			<div class="buttons js-menu-buttons">
-				<div class="border js-border"></div>
-				<button class="buttons__upload js-menu-button active">Upload</button>
-				<button class="buttons__search js-menu-button">Search</button>
-			</div>
 		</div>
 	</header>
 	<content>
 		<div class="container">
+			<div id="messages"></div>
 			<div id="page-wrapper">
 				<section class="page active" id="upload-page">
 					<div class="scrollbar"></div>
 					<div class="content container">
 						<div class="wrapper">
-							<form id="image-upload-form">
-								<label>
-									<span>+</span>
-									<input type="file">
-								</label>
+							<form id="image-upload-form" action="http://localhost/coursework_php/backend/index.php">
+								<div id="image-upload-form__items" class="js-items"></div>
+								<button id="image-upload-form__submit" type="submit">Upload</button>
 							</form>
-						</div>
-					</div>
-				</section>
-
-				<section class="page" id="search-page">
-					<div class="scrollbar"></div>
-					<div class="content container">
-						<div class="wrapper">
-
 						</div>
 					</div>
 				</section>
