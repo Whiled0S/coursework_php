@@ -12,7 +12,7 @@ function makeFilesArrayFromPost($file_post)
         }
     }
 
-    array_pop($file_array);
+    array_pop($file_array); 
 
     return $file_array;
 }
